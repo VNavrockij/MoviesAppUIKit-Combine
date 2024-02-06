@@ -13,6 +13,8 @@
 		FA0CA1502B6E9E9200883219 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA0CA14F2B6E9E9200883219 /* Assets.xcassets */; };
 		FA0CA1532B6E9E9200883219 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA0CA1512B6E9E9200883219 /* LaunchScreen.storyboard */; };
 		FAC073572B7267CF00286E40 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC073562B7267CF00286E40 /* Movie.swift */; };
+		FAC073592B728B2900286E40 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC073582B728B2900286E40 /* HTTPClient.swift */; };
+		FAC0735C2B728BE500286E40 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC0735B2B728BE500286E40 /* String+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		FA0CA1522B6E9E9200883219 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FA0CA1542B6E9E9200883219 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FAC073562B7267CF00286E40 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
+		FAC073582B728B2900286E40 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
+		FAC0735B2B728BE500286E40 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +62,7 @@
 			children = (
 				FA0CA1462B6E9E8E00883219 /* AppDelegate.swift */,
 				FA0CA1482B6E9E8E00883219 /* SceneDelegate.swift */,
+				FAC0735A2B728BCC00286E40 /* Extension */,
 				FAC073552B72671C00286E40 /* ViewModels */,
 				FAC073542B72670B00286E40 /* Clients */,
 				FAC073532B7266FF00286E40 /* Models */,
@@ -88,6 +93,7 @@
 		FAC073542B72670B00286E40 /* Clients */ = {
 			isa = PBXGroup;
 			children = (
+				FAC073582B728B2900286E40 /* HTTPClient.swift */,
 			);
 			path = Clients;
 			sourceTree = "<group>";
@@ -97,6 +103,14 @@
 			children = (
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		FAC0735A2B728BCC00286E40 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				FAC0735B2B728BE500286E40 /* String+Extensions.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -170,8 +184,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA0CA14B2B6E9E8E00883219 /* MoviesViewController.swift in Sources */,
+				FAC073592B728B2900286E40 /* HTTPClient.swift in Sources */,
 				FA0CA1472B6E9E8E00883219 /* AppDelegate.swift in Sources */,
 				FAC073572B7267CF00286E40 /* Movie.swift in Sources */,
+				FAC0735C2B728BE500286E40 /* String+Extensions.swift in Sources */,
 				FA0CA1492B6E9E8E00883219 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
