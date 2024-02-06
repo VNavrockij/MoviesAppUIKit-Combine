@@ -8,18 +8,63 @@
 import Foundation
 import Combine
 
-class MovieListViewModel {
-    @Published private(set) var movies: [Movie] = []
-    @Published private(set) var loadingCompleted: Bool = false
-    private var cancellable: Set<AnyCancellable> = []
+protocol DataSourceProtocol {
+    associatedtype Item
 
-    private let httpClient: HTTPClient
+    var itemsCount: Int { get }
 
-    init(httpClient: HTTPClient) {
-        self.httpClient = httpClient
+    func getItemForIndexPath(indexPath: IndexPath) -> Item
+}
+
+protocol MovieListViewModelProtocol: DataSourceProtocol where Item == Movie {
+    
+    var moviesPublisher: Published<[Item]>.Publisher { get }
+    var loadingCompletedPublisher: Published<Bool>.Publisher { get }
+
+    func setSearchText(_ searchText: String)
+    func loadMovies(search: String)
+
+}
+
+class MovieListViewModel: MovieListViewModelProtocol {
+    typealias Item = Movie
+
+    var itemsCount: Int { movies.count }
+
+    func getItemForIndexPath(indexPath: IndexPath) -> Item {
+        movies[indexPath.item]
     }
 
-    func loadSearch(search: String) {
+    var moviesPublisher: Published<[Item]>.Publisher { $movies }
+    var loadingCompletedPublisher: Published<Bool>.Publisher { $loadingCompleted }
+
+    @Published private var movies: [Item] = []
+    @Published private var loadingCompleted: Bool = false
+
+    private var cancellable: Set<AnyCancellable> = []
+
+    private var searchObject = CurrentValueSubject<String, Never>("")
+
+    private let httpClient: HTTPClientProtocol
+
+    init(httpClient: HTTPClientProtocol) {
+        self.httpClient = httpClient
+        setupSearchPublisher()
+    }
+
+    private func setupSearchPublisher() {
+        searchObject
+            .debounce(for: .seconds(0.5), scheduler: DispatchQueue.main)
+            .sink { [weak self] searchTest in
+                self?.loadMovies(search: searchTest)
+            }.store(in: &cancellable)
+    }
+
+    func setSearchText(_ searchText: String) {
+        searchObject.send(searchText)
+    }
+
+    func loadMovies(search: String) {
         httpClient.fetchMovies(search: search)
             .sink { [weak self] compliton in
                 switch compliton {

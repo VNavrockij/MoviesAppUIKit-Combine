@@ -9,11 +9,13 @@ import UIKit
 import SwiftUI
 import Combine
 
+// MARK: - MoviesViewController
 class MoviesViewController: UIViewController {
 
-    private let viewModel: MovieListViewModel
+    private let viewModel: any MovieListViewModelProtocol
+    private var cancellable: Set<AnyCancellable> = []
 
-    init(viewModel: MovieListViewModel) {
+    init(viewModel: any MovieListViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -26,6 +28,7 @@ class MoviesViewController: UIViewController {
         let searchBar = UISearchBar()
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         searchBar.placeholder = "Search"
+        searchBar.delegate = self
         return searchBar
     }()
 
@@ -39,11 +42,20 @@ class MoviesViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        searchBar.delegate = self
+
         setupUI()
+
+        viewModel.loadingCompletedPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completed in
+                if completed {
+                    // reload table view
+                    self?.moviesTableView.reloadData()
+                }
+            }.store(in: &cancellable)
     }
 
+// MARK: - Setup UI
     private func setupUI() {
         view.backgroundColor = .white
 
@@ -66,12 +78,13 @@ class MoviesViewController: UIViewController {
         searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
     }
-
-
 }
 
+// MARK: - MoviesViewController Extensions
 extension MoviesViewController: UISearchBarDelegate {
-
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        viewModel.setSearchText(searchText)
+    }
 }
 
 extension MoviesViewController: UITableViewDelegate {
@@ -80,13 +93,15 @@ extension MoviesViewController: UITableViewDelegate {
 
 extension MoviesViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        10
+        viewModel.itemsCount
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let movie = viewModel.getItemForIndexPath(indexPath: indexPath)
+
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieTableViewCell", for: indexPath)
         var content = cell.defaultContentConfiguration()
-        content.text = "Hello Combine"
+        content.text = movie.title
         cell.contentConfiguration = content
 
         return cell
@@ -94,6 +109,7 @@ extension MoviesViewController: UITableViewDataSource {
 
 }
 
+// MARK: - MoviesViewControllerRepresentable
 struct MoviesViewControllerRepresentable: UIViewControllerRepresentable {
     typealias UIViewControllerType = MoviesViewController
 

@@ -20,7 +20,7 @@ class HTTPClient: HTTPClientProtocol {
 
     func fetchMovies(search: String) -> AnyPublisher<[Movie], Error> {
         guard let encodedSearch = search.urlEncoding,
-              let url =  URL(string: "http://www.omdbapi.com/?s=t\(search)&apikey=9150748b")
+              let url =  URL(string: "https://www.omdbapi.com/?s=t\(search)&apikey=9150748b")
         else {
             return Fail(error: NetworkError.badUrl).eraseToAnyPublisher()
         }
