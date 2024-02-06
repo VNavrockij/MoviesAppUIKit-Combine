@@ -15,6 +15,7 @@
 		FAC073572B7267CF00286E40 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC073562B7267CF00286E40 /* Movie.swift */; };
 		FAC073592B728B2900286E40 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC073582B728B2900286E40 /* HTTPClient.swift */; };
 		FAC0735C2B728BE500286E40 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC0735B2B728BE500286E40 /* String+Extensions.swift */; };
+		FAC0735E2B728E7700286E40 /* MovieListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC0735D2B728E7700286E40 /* MovieListViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		FAC073562B7267CF00286E40 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		FAC073582B728B2900286E40 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		FAC0735B2B728BE500286E40 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
+		FAC0735D2B728E7700286E40 /* MovieListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +103,7 @@
 		FAC073552B72671C00286E40 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				FAC0735D2B728E7700286E40 /* MovieListViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -186,6 +189,7 @@
 				FA0CA14B2B6E9E8E00883219 /* MoviesViewController.swift in Sources */,
 				FAC073592B728B2900286E40 /* HTTPClient.swift in Sources */,
 				FA0CA1472B6E9E8E00883219 /* AppDelegate.swift in Sources */,
+				FAC0735E2B728E7700286E40 /* MovieListViewModel.swift in Sources */,
 				FAC073572B7267CF00286E40 /* Movie.swift in Sources */,
 				FAC0735C2B728BE500286E40 /* String+Extensions.swift in Sources */,
 				FA0CA1492B6E9E8E00883219 /* SceneDelegate.swift in Sources */,

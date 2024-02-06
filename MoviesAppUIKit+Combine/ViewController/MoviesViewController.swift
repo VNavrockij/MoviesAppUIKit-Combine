@@ -11,7 +11,17 @@ import Combine
 
 class MoviesViewController: UIViewController {
 
+    private let viewModel: MovieListViewModel
 
+    init(viewModel: MovieListViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.translatesAutoresizingMaskIntoConstraints = false
@@ -91,7 +101,7 @@ struct MoviesViewControllerRepresentable: UIViewControllerRepresentable {
         //
     }
     func makeUIViewController(context: Context) -> MoviesViewController {
-        MoviesViewController()
+        MoviesViewController(viewModel: MovieListViewModel(httpClient: HTTPClient()))
     }
 }
 
